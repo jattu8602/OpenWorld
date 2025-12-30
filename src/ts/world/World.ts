@@ -31,6 +31,7 @@ import { Vehicle } from '../vehicles/Vehicle';
 import { Scenario } from './Scenario';
 import { Sky } from './Sky';
 import { Ocean } from './Ocean';
+import { MiniMap } from './MiniMap';
 
 export class World
 {
@@ -61,6 +62,7 @@ export class World
 	public characters: Character[] = [];
 	public vehicles: Vehicle[] = [];
 	public paths: Path[] = [];
+	public miniMap: MiniMap;
 	public scenarioGUIFolder: any;
 	public updatables: IUpdatable[] = [];
 
@@ -151,6 +153,7 @@ export class World
 		this.inputManager = new InputManager(this, this.renderer.domElement);
 		this.cameraOperator = new CameraOperator(this, this.camera, this.params.Mouse_Sensitivity);
 		this.sky = new Sky(this);
+		this.miniMap = new MiniMap(this);
 
 		// Load scene if path is supplied
 		if (worldScenePath !== undefined)
@@ -279,6 +282,7 @@ export class World
 
 		// Logic
 		world.update(timeStep, unscaledTimeStep);
+		world.miniMap.update();
 
 		// Measuring logic time
 		this.logicDelta = this.clock.getDelta();
@@ -382,6 +386,8 @@ export class World
 
 					if (child.userData.data === 'scenario')
 					{
+						console.log(`[MAP_ANALYSIS] Scenario found: ${child.name} at x:${child.position.x}, y:${child.position.y}, z:${child.position.z}`);
+						this.miniMap.setSpawnPoint(child.position);
 						this.scenarios.push(new Scenario(child, this));
 					}
 				}
