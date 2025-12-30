@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import type { World } from './World';
+import { World } from './World';
 
 export class MiniMap {
     public camera: THREE.OrthographicCamera;

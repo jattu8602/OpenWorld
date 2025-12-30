@@ -13,6 +13,7 @@ import { Path } from './Path';
 import { Vehicle } from '../vehicles/Vehicle';
 import { Scenario } from './Scenario';
 import { Sky } from './Sky';
+import { MiniMap } from './MiniMap';
 export declare class World {
     renderer: THREE.WebGLRenderer;
     camera: THREE.PerspectiveCamera;
@@ -41,6 +42,7 @@ export declare class World {
     characters: Character[];
     vehicles: Vehicle[];
     paths: Path[];
+    miniMap: MiniMap;
     scenarioGUIFolder: any;
     updatables: IUpdatable[];
     private lastScenarioID;
